@@ -9,7 +9,7 @@ _countries = [
     "thailand", "philippines", "new zealand", "norway", "denmark", "finland",
     "poland", "austria", "belgium", "portugal", "ireland", "greece", "hungary",
     "czech republic", "israel", "egypt", "pakistan", "bangladesh", "iran", "iraq",
-    "ukraine", "kazakhstan", "chile", "colombia", "peru"
+    "ukraine", "kazakhstan", "chile", "colombia", "peru", "usa", "uk"
 ]
 
 def find_in_words(words: list[str])-> Optional[str]:

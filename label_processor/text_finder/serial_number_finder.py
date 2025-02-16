@@ -1,7 +1,8 @@
 
 import re
 from typing import Optional
-
+from pyzbar.pyzbar import decode
+from PIL import Image
 
 _serial_number_keys = [
     "s/n",
@@ -37,7 +38,8 @@ def find_in_text(text: str, next_text: Optional[str])-> Optional[str]:
         serial_number = _find_in_text_has_key(text, key)
         if serial_number is not None:
             return serial_number
-        
+        if next_text is None:
+            return None
         if len(_keys_in_text(next_text)) > 0:
             return None
         
@@ -74,3 +76,16 @@ def _get_valid_serial_number(text: str) -> Optional[str]:
             return serial_number
     
     return None
+
+def find_in_image(image_path: str)-> Optional[str]:
+    img = Image.open(image_path)
+
+    decoded_objects = decode(img)
+    print(decoded_objects)
+    if len(decoded_objects) == 0:
+        return None
+
+    text = decoded_objects[0].data.decode('utf-8')
+    if str(text).startswith("http"):
+        return None
+    return text

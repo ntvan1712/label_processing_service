@@ -1,4 +1,5 @@
 import http.server
+import os
 import socketserver
 import cgi
 import json
@@ -24,15 +25,17 @@ class SimpleHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                 # Lưu file ảnh được upload vào ổ đĩa
                 file_data = file_item.file.read()
                 file_name = file_item.filename
-                with open(f"./uploaded_images/{file_name}", "wb") as output_file:
+                file_path = f"./uploaded_images/{file_name}"
+                with open(file_path, "wb") as output_file:
                     output_file.write(file_data)
 
-                result = image_processor.image_to_product_label_model(f"./uploaded_images/{file_name}")
+                result = image_processor.image_to_product_label_model(file_path)
                 # response = {
                 #     'status': 'success',
                 #     'message': 'File uploaded successfully!',
                 #     'file_name': file_name
                 # }
+                os.remove(file_path)
                 if result != None:
                     self.send_response(200)
                     self.send_header('Content-type', 'application/json')

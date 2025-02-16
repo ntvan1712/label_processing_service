@@ -12,14 +12,14 @@ def _image_to_list_text(image_path: str) -> list[str]:
     start_time = time.time()
     
     ocr_result = ocr_engine.ocr(img= image_path, cls=False)
-    text_list = [str(res[1][0]).lower() for line in ocr_result for res in line]
+    list_text = [str(res[1][0]).lower() for line in ocr_result for res in line]
     
     end_time = time.time()
     
     print(f"PaddleOCR Process {image_path} - Time: {end_time - start_time:.4f}s")
-    print("PaddleOCR Output:\n", text_list)
+    print("PaddleOCR Output:\n", list_text)
     
-    return text_list
+    return list_text
 
 def image_to_product_label_model(image_path: str) -> Optional[ProductLabelModel]:
     serial_number = None
@@ -43,11 +43,18 @@ def image_to_product_label_model(image_path: str) -> Optional[ProductLabelModel]
             manufacturer = manufacturer_finder.find_in_words(words)
         if country_of_origin is None:
             country_of_origin = country_finder.find_in_words(words)
+
+    if serial_number is None:
+        serial_number_by_image = serial_number_finder.find_in_image(image_path= image_path)
+        if serial_number_by_image is not None:
+            serial_number = serial_number_by_image
+
     if serial_number is None:
         if len(all_words) != 1:
             return None
         else:
             serial_number = all_words[0]
+
     
     return ProductLabelModel(
         serial_number=serial_number,
