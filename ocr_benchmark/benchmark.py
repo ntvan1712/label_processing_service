@@ -20,3 +20,5 @@ def get_all_file_names_from_folder(folder_path: str) -> list[str]:
 file_names = get_all_file_names_from_folder("label_example")
 for file_name in file_names:
     image_processor.image_to_product_label_model(f"label_example/{file_name}")
+
+

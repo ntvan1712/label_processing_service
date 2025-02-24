@@ -5,7 +5,7 @@ _manufacturers = [
     # Hãng máy tính và laptop
     "apple", "dell", "hp", "lenovo", "asus", "acer", "microsoft",
     "msi", "razer", "huawei", "gigabyte", "toshiba", "sony", "samsung",
-    "lg", "xiaomi", "alienware", "panasonic", "dynabook", "vaio",
+    "lg", "xiaomi", "alienware", "panasonic", "vaio", "nvidia", 
     
     # Hãng sản xuất chuột và bàn phím
     "logitech", "razer", "steelseries", "corsair", "cooler master", "hyperx", "asus rog",
@@ -14,7 +14,7 @@ _manufacturers = [
     # Đồ điện tử khác
     "sennheiser", "bose", "sony", "jbl", "anker", "beats", "philips",
     "plantronics", "vizio", "yamaha", "samsung", "sharp", "lg", "panasonic",
-    "vivo", "oneplus", "oppo", "realme", "google", "nokia", "htc",
+    "vivo", "oneplus", "oppo", "realme", "google", "nokia", "htc", "epson", "brother",
 ]
 
 def find_in_words(words: list[str])-> Optional[str]:

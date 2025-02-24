@@ -11,9 +11,13 @@ ocr_engine = PaddleOCR(use_angle_cls=True, use_gpu=False,lang='en', show_log=Fal
 def _image_to_list_text(image_path: str) -> list[str]:
     start_time = time.time()
     
-    ocr_result = ocr_engine.ocr(img= image_path, cls=False)
-    list_text = [str(res[1][0]).lower() for line in ocr_result for res in line]
-    
+    try:
+        ocr_result = ocr_engine.ocr(img= image_path, cls=False)
+        list_text = [str(res[1][0]).lower() for line in ocr_result for res in line]
+    except Exception as e:
+        print(f"PaddleOCR error: {e}")
+        return []
+        
     end_time = time.time()
     
     print(f"PaddleOCR Process {image_path} - Time: {end_time - start_time:.4f}s")
