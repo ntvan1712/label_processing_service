@@ -75,7 +75,6 @@ def find_in_image(image_path: str)-> Optional[str]:
         if text.startswith("http"):
             return None
         return text
-
     except:
         return None
     

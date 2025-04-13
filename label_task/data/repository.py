@@ -50,22 +50,30 @@ def update_error_task(error_code: str, task_id: int):
     conn = get_connection()
     cursor = conn.cursor()
 
-    fields_to_update = {}
-    fields_to_update["error_code"] = error_code  
-    fields_to_update["completed_at"] = datetime.now()
+    try:
+        fields_to_update = {
+            "error_code": error_code,
+            "completed_at": datetime.now(),
+        }
 
-    set_clause = ", ".join([f"{key} = %s" for key in fields_to_update.keys()])
-    values = list(fields_to_update.values()) + [task_id]
+        set_clause = ", ".join([f"{key} = %s" for key in fields_to_update.keys()])
+        values = list(fields_to_update.values()) + [task_id]
 
-    update_query = f"""
-        UPDATE {_asset_table}
-        SET {set_clause}
-        WHERE id = %s;
-    """
+        update_query = f"""
+            UPDATE {_asset_table}
+            SET {set_clause}
+            WHERE id = %s;
+        """
 
-    cursor.execute(update_query, values)
-    conn.commit()
+        cursor.execute(update_query, values)
+        conn.commit()
 
-    print(f"[LabelTaskRepository.update_error_task] Task with ID {task_id} updated with fields {fields_to_update}")
+        print(f"[LabelTaskRepository.update_error_task] Task with ID {task_id} updated with fields {fields_to_update}")
 
-    cursor.close()
+    except Exception as e:
+        conn.rollback()
+        print(f"[LabelTaskRepository.update_error_task] ERROR: {e}")
+        raise
+
+    finally:
+        cursor.close()
