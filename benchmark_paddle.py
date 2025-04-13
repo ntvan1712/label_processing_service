@@ -63,7 +63,7 @@ with open("output_labels.json", "w") as output_file:
             results.append({
                 "serial_number": result.serial_number,
                 "manufacturer": result.manufacturer,
-                "country_of_origin": result.country_of_origin,
+                "country_of_origin": result.made_in,
                 "all_words": result.all_words
             })
 

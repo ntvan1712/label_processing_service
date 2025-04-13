@@ -5,9 +5,10 @@ title_log = "RabbitMQInfras"
 
 # Định nghĩa tên của queue và các thông tin kết nối
 label_task_queue_name = "label_task_queue"
-_credentials = pika.PlainCredentials('asset_label_service', 'kaido1712')
+
+_credentials = pika.PlainCredentials('ocr_service', 'kaido1712')
 _parameters = pika.ConnectionParameters(
-    host='localhost',
+    host='127.0.0.1',
     port=5672,
     virtual_host='asset_management',
     credentials=_credentials,

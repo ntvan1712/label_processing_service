@@ -11,13 +11,13 @@ class ProductLabelModel:
         ):
         self.serial_number = serial_number
         self.manufacturer = manufacturer
-        self.country_of_origin = country_of_origin
+        self.made_in = country_of_origin
         self.all_words = all_words
 
     def to_json(self) -> str:
         return json.dumps({
             "serial_number": self.serial_number,
             "manufacturer": self.manufacturer,
-            "country_of_origin": self.country_of_origin,
+            "made_in": self.made_in,
             "all_words": self.all_words
         }, ensure_ascii=False, indent=4)
